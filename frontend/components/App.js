@@ -1,5 +1,6 @@
 import React from 'react'
 import TodoList from './TodoList'
+import axios from 'axios'
 
 const URL = 'http://localhost:9000/api/todos'
 
@@ -34,6 +35,17 @@ export default class App extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    axios.get("http://localhost:9000/api/todos")
+    .then(res => {
+      //console.log(res)
+      this.setState({ todos : res.data.data})
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
+
   changeHandler = (e) => {
 
   }
@@ -42,7 +54,7 @@ export default class App extends React.Component {
 
   }
 
-  completedhandler = (e, name) => {
+  completedhandler = (name) => {
     this.setState({...this.state, todos : this.state.todos.map(todo => {
       if (todo.name === name) {
         todo.completed = !todo.completed
