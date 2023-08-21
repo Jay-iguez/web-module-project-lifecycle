@@ -15,7 +15,12 @@ export default class TodoList extends React.Component {
         })
       }
       </div>
-      <Form />
+      <Form
+       changeHandler={this.props.changeHandler} 
+       submitHandler={this.props.submitHandler} 
+       todoAppendName={this.props.todoAppendName}
+       />
+      <button onClick={this.props.clearHandler}>Hide Completed</button>
       </>
     )
   }

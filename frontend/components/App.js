@@ -31,7 +31,8 @@ export default class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      todos : defaultTodos
+      todos : defaultTodos,
+      todoAppend : ''
     }
   }
 
@@ -47,7 +48,8 @@ export default class App extends React.Component {
   }
 
   changeHandler = (e) => {
-
+    const {value} = e.target
+    this.setState({todoAppend : value})
   }
 
   submitHandler = (e) => {
@@ -64,12 +66,19 @@ export default class App extends React.Component {
   }
 
   clearHandler = (e) => {
-
+    
   }
 
   render() {
     return (
-       <TodoList todoArray={this.state.todos} completedHandler={this.completedhandler} />
+       <TodoList
+        todoArray={this.state.todos} 
+        completedHandler={this.completedhandler} 
+        clearHandler={this.clearHandler} 
+        changeHandler={this.changeHandler}
+        sumbitHandler={this.submitHandler}
+        todoAppendName={this.state.todoAppend}
+        />
     )
   }
 }
