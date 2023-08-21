@@ -19,8 +19,9 @@ export default class TodoList extends React.Component {
        changeHandler={this.props.changeHandler} 
        submitHandler={this.props.submitHandler} 
        todoAppendName={this.props.todoAppendName}
+       clearHandler={this.props.clearHandler}
+       clearStatus={this.props.clearStatus}
        />
-      <button onClick={this.props.clearHandler}>Hide Completed</button>
       </>
     )
   }

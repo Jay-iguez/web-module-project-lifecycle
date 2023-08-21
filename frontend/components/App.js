@@ -4,7 +4,9 @@ import axios from 'axios'
 
 const URL = 'http://localhost:9000/api/todos'
 
-const defaultTodos = [
+let clearStatus = false
+
+let defaultTodos = [
   {
     name: 'Put gas in car',
     id: Date.now(),
@@ -39,7 +41,7 @@ export default class App extends React.Component {
   componentDidMount = () => {
     axios.get("http://localhost:9000/api/todos")
     .then(res => {
-      //console.log(res)
+      console.log(res)
       this.setState({ todos : res.data.data})
     })
     .catch(err => {
@@ -68,17 +70,38 @@ export default class App extends React.Component {
     })
   }
 
-  completedhandler = (name) => {
-    this.setState({...this.state, todos : this.state.todos.map(todo => {
-      if (todo.name === name) {
-        todo.completed = !todo.completed
+  completedhandler = (id) => {
+    axios.patch(`http://localhost:9000/api/todos/${id}`)
+    .then(res => {
+      this.setState({...this.state, todos : this.state.todos.map(todo => {
+      if (todo.id === id) {
+        todo = res.data.data
         return todo
       } else return todo
     })})
+    })
+    .catch(err => {
+      console.error(err)
+    })
   }
 
   clearHandler = (e) => {
-    
+    e.preventDefault()
+    clearStatus = !clearStatus
+    if (clearStatus === true){
+      defaultTodos = this.state.todos
+      this.setState(() => ({
+        todos : this.state.todos.filter(todo => {
+          if (todo.completed === false) {
+            return todo
+          }
+        })
+      }))
+    } else if (clearStatus === false) {
+      this.setState(() => ({
+        todos : defaultTodos
+      }))
+    }
   }
 
   render() {
@@ -90,6 +113,7 @@ export default class App extends React.Component {
         changeHandler={this.changeHandler}
         submitHandler={this.submitHandler}
         todoAppendName={this.state.todoAppend}
+        clearStatus={clearStatus}
         />
     )
   }

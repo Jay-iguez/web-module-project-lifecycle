@@ -11,6 +11,7 @@ export default class Form extends React.Component {
           placeholder="Todo here"
         />
         <button onClick={this.props.submitHandler}>Submit</button>
+        <button onClick={this.props.clearHandler}>{this.props.clearStatus === false ? 'Hide Completed' : 'Show Completed'}</button>
       </>
     )
   }
