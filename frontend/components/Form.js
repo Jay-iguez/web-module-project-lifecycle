@@ -8,9 +8,9 @@ export default class Form extends React.Component {
           type='text'
           value={this.props.todoAppendName}
           onChange={this.props.changeHandler}
-          placeHolder="Todo here"
+          placeholder="Todo here"
         />
-        <button>Submit</button>
+        <button onClick={this.props.submitHandler}>Submit</button>
       </>
     )
   }

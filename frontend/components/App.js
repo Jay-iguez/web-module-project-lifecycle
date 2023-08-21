@@ -53,7 +53,19 @@ export default class App extends React.Component {
   }
 
   submitHandler = (e) => {
-
+    e.preventDefault()
+    const todoName = this.state.todoAppend
+    axios.post('http://localhost:9000/api/todos', {name : todoName})
+    .then(res => {
+      const newData = res.data.data
+      this.setState(() => ({
+        todos : [...this.state.todos, newData],
+        todosAppend: ''
+      }))
+    })
+    .catch(err => {
+      console.error(err)
+    })
   }
 
   completedhandler = (name) => {
@@ -76,7 +88,7 @@ export default class App extends React.Component {
         completedHandler={this.completedhandler} 
         clearHandler={this.clearHandler} 
         changeHandler={this.changeHandler}
-        sumbitHandler={this.submitHandler}
+        submitHandler={this.submitHandler}
         todoAppendName={this.state.todoAppend}
         />
     )
