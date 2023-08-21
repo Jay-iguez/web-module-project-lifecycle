@@ -15,6 +15,11 @@ body::after {
   z-index: -1;
 }
 
+.completed {
+  color: grey;
+  text-decoration: line-through;
+}
+
 body, input, button {
   font-family: 'Titillium Web', sans-serif;
   color: #484848;

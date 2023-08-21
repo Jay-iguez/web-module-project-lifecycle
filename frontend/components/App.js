@@ -42,8 +42,13 @@ export default class App extends React.Component {
 
   }
 
-  completedhandler = (e) => {
-    console.log('hey')
+  completedhandler = (e, name) => {
+    this.setState({...this.state, todos : this.state.todos.map(todo => {
+      if (todo.name === name) {
+        todo.completed = !todo.completed
+        return todo
+      } else return todo
+    })})
   }
 
   clearHandler = (e) => {
